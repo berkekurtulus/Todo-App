@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do & Task Tracker App </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header> 
+        <h1>Todo App</h1>
+    </header>
+    <main>
+        <nav class="filter_tabs">
+            <button type="button" class="tab_btn active">Today</button>
+            <button type="button" class=" tab_btn">Pending</button>
+            <button type="button" class="tab_btn">Overdue</button>
+        </nav>
+        <section class="tasks_container">
+            <div class="tasks_header">
+            <h2>Tasks</h2>
+            <button type="button" id="add_task_btn">+ Add Task</button>
+            </div>
+            <ul id="task_list">  
+                <li>
+                    <input type="checkbox">
+                    <span>Draft Project Proposal </span>
+                    <time>Tue Oct 17 2023</time>
+                    <button type="button" class="edit_btn">Edit</button>
+                    <button type="button" class="delete_btn">Delete</button>    
+                </li>
+            </ul>
+        </section>
+        <section class="completed_section">
+            <h3>Completed</h3>
+            <ul id="completed_list">
+            </ul>
+        </section>
+    </main>
+
+</body>
+</html>
