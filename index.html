@@ -13,22 +13,20 @@
     <main>
         <nav class="filter_tabs">
             <button type="button" class="tab_btn active">Today</button>
-            <button type="button" class=" tab_btn">Pending</button>
+            <button type="button" class="tab_btn">Pending</button>
             <button type="button" class="tab_btn">Overdue</button>
         </nav>
         <section class="tasks_container">
             <div class="tasks_header">
             <h2>Tasks</h2>
+            <div class="input_group">
+                <input type="text" id="task_input" placeholder="Enter a new task ...">
+                <input type="date" id="task_date">
+            </div>
             <button type="button" id="add_task_btn">+ Add Task</button>
             </div>
             <ul id="task_list">  
-                <li>
-                    <input type="checkbox">
-                    <span>Draft Project Proposal </span>
-                    <time>Tue Oct 17 2023</time>
-                    <button type="button" class="edit_btn">Edit</button>
-                    <button type="button" class="delete_btn">Delete</button>    
-                </li>
+
             </ul>
         </section>
         <section class="completed_section">
@@ -37,6 +35,6 @@
             </ul>
         </section>
     </main>
-
+    <script src="app.js"></script>
 </body>
 </html>
