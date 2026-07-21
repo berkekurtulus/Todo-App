@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager
 from models import db, User
 from routes.todos import todos_bp
@@ -22,6 +22,11 @@ def load_user(user_id):
 
 app.register_blueprint(todos_bp)
 app.register_blueprint(auth_bp)
+
+
+@app.route('/')
+def root():
+    return redirect(url_for('auth.login'))
 
 
 @app.errorhandler(404)

@@ -24,7 +24,7 @@ def register():
         db.session.commit()
 
         flash('Registration successful! You can now log in.', 'success')
-        return redirect(url_for('auth.register'))
+        return redirect(url_for('auth.login'))
 
     return render_template('register.html')
 
@@ -38,7 +38,7 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
-            login_user(user)
+            login_user(user, remember=False)
             return redirect(url_for('todos.index'))
 
         flash('Username or password is wrong!', 'danger')

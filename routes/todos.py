@@ -1,18 +1,19 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 from models import db, Todo
 
 todos_bp = Blueprint("todos", __name__)
 
 
-@todos_bp.route("/", methods=['GET', 'POST'])
+@todos_bp.route("/todos", methods=['GET', 'POST'])
 @login_required
 def index():
-    todos = Todo.query.all()
+    todos = Todo.query.filter_by(user_id=current_user.id).all()
     return render_template("index.html", todos=todos)
 
 
 @todos_bp.route("/add", methods=["POST"])
+@login_required
 def addTodo():
     title = request.form.get("title", "").strip()
     content = request.form.get("content", "").strip()
@@ -21,7 +22,8 @@ def addTodo():
         flash("Please do not leave the task title or content place!", "warning")
         return redirect(url_for("todos.index"))
 
-    newTodo = Todo(title=title, content=content, complete=False)
+    newTodo = Todo(title=title, content=content,
+                   complete=False, user_id=current_user.id)
     db.session.add(newTodo)
     db.session.commit()
 
