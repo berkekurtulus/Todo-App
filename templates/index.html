@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class = "todo_card">
+        <h1>Todo List</h1>    
+        <hr>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class = "alert alert-{{ category }} alert-dismissible fade show shadow-sm" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action = "{{ url_for('todos.addTodo') }}" method = "post">
+           <div class = "form-group">
+                <label for = "formGroupExampleInput">Todo Title</label>
+                <input type = "text" name = "title" class= "form-control" id = "formGroupExampleInput" placeholder = "Enter Todo Title...">
+            </div>
+            <br>
+            <div class = "form-group">
+                <label for = "formGroupExampleınput2">Todo Content</label>
+                <input type = "text" name = "content"class = "form-control" id = "formGroupExampleInput2" placeholder = "Enter Todo Content...">
+            </div>
+            <br>
+            <button type = "submit" class = "btn btn-primary"> Add </button>
+        </form>
+        <br>
+        
+        {% if todos == [] %}
+        <div class = "alert alert-warning" role = "alert">
+            There Are No Tasks Here...
+        </div>
+        
+        {% else %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Todo Title</th>
+                        <th scope="col">Todo Content</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Update</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for todo in todos %}
+                        <tr>
+                        <th scope="row">{{todo.id}}</th>
+                        <td> <a href="{{ url_for('todos.detailTodo', id=todo.id) }}"> {{todo.title}} </a> </td>
+                        <td>{{todo.content}}</td>
+                        {% if todo.complete == False%}
+                        <td> Not Completed</td>
+                        {% else %}
+                        <td> Completed</td>
+                        {% endif %}
+                        <td> <a href= "{{ url_for('todos.updateTodo', id=todo.id) }}" class = "btn btn-primary btn-table-action"> Update </a> </td>
+                        <td> <a href= "{{ url_for('todos.deleteTodo', id=todo.id) }}" class = "btn btn-danger btn-table-action" > Delete</a> </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% endif %}
+        
+    </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>   
+
+</body>
+</html>
